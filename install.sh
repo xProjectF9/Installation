@@ -97,13 +97,13 @@ print_manual_instructions() {
 
     printf "Debian / Ubuntu:\n"
     printf "  sudo apt update\n"
-    printf "  sudo apt install -y libgtk2.0-0 libssl-dev unzip p7zip-full\n\n"
+    printf "  sudo apt install -y libgtk2.0-0 libssl-dev unzip p7zip-full wget\n\n"
 
     printf "Fedora / Rocky / AlmaLinux:\n"
-    printf "  sudo dnf install -y gtk2 openssl-devel unzip p7zip\n\n"
+    printf "  sudo dnf install -y gtk2 openssl-devel unzip p7zip wget\n\n"
 
     printf "openSUSE:\n"
-    printf "  sudo zypper install -y gtk2 libopenssl-devel unzip p7zip\n"
+    printf "  sudo zypper install -y gtk2 libopenssl-devel unzip p7zip wget\n"
 
     printf "%s\n\n" "------------------------------------------------------------"
 }
@@ -261,19 +261,19 @@ install_deps() {
                 return 1
             fi
 
-            for pkg in libgtk2.0-0 libssl-dev unzip p7zip-full; do
+            for pkg in libgtk2.0-0 libssl-dev unzip p7zip-full wget; do
                 install_pkg_debian "$pkg" || return 1
             done
             ;;
 
         fedora)
-            for pkg in gtk2 openssl-devel unzip p7zip; do
+            for pkg in gtk2 openssl-devel unzip p7zip wget; do
                 install_pkg_fedora "$pkg" || return 1
             done
             ;;
 
         opensuse)
-            for pkg in gtk2 libopenssl-devel unzip p7zip; do
+            for pkg in gtk2 libopenssl-devel unzip p7zip wget; do
                 install_pkg_opensuse "$pkg" || return 1
             done
             ;;
@@ -366,7 +366,7 @@ main() {
     printf "\n"
 
     if prompt_yes_no \
-        "Install required system dependencies (GTK2, OpenSSL, unzip, 7z)?" \
+        "Install required system dependencies (GTK2, OpenSSL, unzip, 7z, wget)?" \
         "y"; then
 
         if ! install_deps "$distro"; then
